@@ -1,0 +1,18 @@
+<script src="../js/util.js"></script>
+<script>
+// accept variable from url to turn pages
+var pid=parseInt(getUrlParam('pid'));if(isNaN(pid)){pid=0;}
+var out ='';
+out+='<h1>Page '+pid+'</h1>'
+out+='<table>'
+var num_row=10;
+var numP=100;
+for(var i=pid*numP;i<(pid+1)*numP;i++){
+        if(i%num_row==0){out+='<tr>'}
+        out+='<td>'+(ind[i])+'<br/>'
+        out+='<img height=100 src="nag_zalign/'+ind[i]+'.png" /></td>'
+        if((i+1)%num_row==0){out+='</tr>'}
+}
+out+='</table>'
+document.write(out)
+</script>
