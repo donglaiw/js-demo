@@ -23,7 +23,8 @@ out+='<button id="a1" type="button" style="height:100px;width:200px;" class="pla
 out+='<button id="a0" type="button" style="height:100px;width:200px;" class="play">Manual Play</button>'
 out+='</td></tr>'
 
-out+='<tr><td colspan=4 align=center><font size=6><b><p id="text">Sample '+im_id+'</p></b></font>'
+out+='<tr><td colspan=4 align=center><font size=6>Sample <input style="width:3em;font-size:36;" type="text" maxlength="3" id="text"></font>'
+
 out+='</td></tr>'
 out+='<tr>'
 out+='<td colspan=4 align=center><img class="im" fid=0 height=400 src="'+getImName(0)+'"/></td>'
@@ -38,7 +39,7 @@ function getImName(fid){
 function update(n){
     im_id = (im_id+n) % im_num;
     if(im_id==0){ im_id=im_num; }
-    $('#text').text('Slice '+im_id);
+    $('#text').val(im_id);
     $('.im').each(function(){
 	    $(this)[0].src=getImName($(this)[0].getAttribute('fid'));
     });
@@ -48,6 +49,10 @@ function nextAuto(){
     update(1)
    }
 }
+$("input").change(function(){
+        var val = parseInt($(this).val());
+        update(val-im_id);
+   });
 
 $(document).keypress(function(e) {
   if(String.fromCharCode(e.which) == "l") {
