@@ -1,0 +1,84 @@
+<script src="../js/jquery-1.7.1.min.js"></script>
+<script src="../js/util.js"></script>
+<script>
+// get button location
+tout=parseInt(getUrlParam('t'));if(isNaN(tout)){tout=200;}
+do_auto = 1;
+
+im_id = 1;
+im_num = 10;
+// output html first
+var out=""
+var d0="../img/1_";
+out+='<table>'
+out+='<tr><td align="center" colspan=4>url: "?t=300" means the "Auto Play" mode updates the slice every 300 ms</td></tr>'
+out+='<tr><td align="center" colspan=4><font size=5><table border=1><tr><td>keyboard shortcut:</td>'
+out+='<td> "l": switch between <i>auto</i> and <i>manual</i></td>'
+out+='<td>",": previous slice</td>'
+out+='<td>".": next slice</td></tr></table></font>'
+out+='</td></tr>'
+
+out+='<tr><td colspan=4 align="center">'
+out+='<button id="a1" type="button" style="height:100px;width:200px;" class="play">Auto Play</button>'
+out+='<button id="a0" type="button" style="height:100px;width:200px;" class="play">Manual Play</button>'
+out+='</td></tr>'
+
+out+='<tr><td colspan=4 align=center><font size=6><b><p id="text">Sample '+im_id+'</p></b></font>'
+out+='</td></tr>'
+out+='<tr>'
+out+='<td colspan=4 align=center><img class="im" fid=0 height=400 src="'+getImName(0)+'"/></td>'
+out+='</tr>'
+out+='</table>'
+document.write(out);
+
+function getImName(fid){
+    var fn=d0+im_id+".png";
+    return fn
+}
+function update(n){
+    im_id = (im_id+n) % im_num;
+    if(im_id==0){ im_id=im_num; }
+    $('#text').text('Slice '+im_id);
+    $('.im').each(function(){
+	    $(this)[0].src=getImName($(this)[0].getAttribute('fid'));
+    });
+}
+function nextAuto(){
+   if(do_auto>0){
+    update(1)
+   }
+}
+
+$(document).keypress(function(e) {
+  if(String.fromCharCode(e.which) == "l") {
+     $('#a'+do_auto)[0].style.backgroundColor='';
+     do_auto=1-do_auto;
+     $('#a'+do_auto)[0].style.backgroundColor='orange';
+  }
+  if(do_auto==0){
+          if(String.fromCharCode(e.which) == ",") {
+            update(-1)
+          }else if(String.fromCharCode(e.which) == ".") {
+            update(1)
+          }
+  }
+});
+
+$("#a1").click(function(){
+    do_auto=1;
+    $('#a0')[0].style.backgroundColor='';
+    $(this)[0].style.backgroundColor='orange';
+})
+$("#a0").click(function(){
+    do_auto=0;
+    $('#a1')[0].style.backgroundColor='';
+    $(this)[0].style.backgroundColor='orange';
+})
+
+function init(){
+    $('#a1')[0].style.backgroundColor='orange';
+    setInterval(nextAuto,tout);
+}
+init()
+
+</script>

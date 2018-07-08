@@ -1,0 +1,63 @@
+<script src="../js/jquery-1.7.1.min.js"></script>
+1. object class: <input type="text" id="fid" size=3> (values: 1~10)<br/>
+2. segment starting IDs: <input type="text" id="seg" size=10> (separated by comma)
+<div id="img"></div>
+
+<script>
+var tt=[1];
+var seg_val='0,4'
+var class_id=1;
+
+var num=10
+var numCol=5
+
+var d0="../img/";
+function getImName(im_id){
+    var fn = d0+class_id+'_'+(im_id+1)+'.png'
+    return fn
+}
+
+function update(){
+	var out=""
+	out+="<table border=1>"
+	out+="<tr><td>seg ID</td><td>frame ID</td><td>images</td></tr>"
+	var lt=1;
+	for(i=0;i<tt.length;i++){
+		if(i==tt.length-1){lt=num-1;}else{lt=tt[i+1]-1}
+		out+="<tr><td>"+(i+1)+"</td><td>"+tt[i]+"-"+(lt)+"</td><td>"
+		out+='<table>'
+		for(j=tt[i];j<lt+1;j++){
+			if ((j-tt[i])%numCol==0){out+='<tr><td>'}
+			out+='<img height=100 src="'+getImName(j)+'">'
+			if ((j-tt[i]+1)%numCol==0){out+='</td></tr>'}
+		}
+		if ((lt-tt[i]+1)%numCol!=0){out+='</td></tr>'}
+		out+='</table>'
+		out+="</td></tr>"
+	}
+	out+="<table>"
+	$("#img").html(out)
+}
+function update_tt(val){
+	tt = val.split(",");
+	for (a in tt){
+	    tt[a] = parseInt(tt[a]);
+	}
+        update();
+}
+function update_f(val){
+	class_id=val
+        update();
+}
+$("#seg").change(function(){
+        update_tt($(this).val());
+   });
+$("#fid").change(function(){
+	update_f($(this).val())
+   });
+
+// init
+$('#fid').val(class_id)
+$('#seg').val(seg_val)
+update_tt(seg_val);
+</script>
