@@ -5,9 +5,9 @@ html/javascript pages for result visualization.
 
 ## File Description (`demo/`)
 1. Display
-  - grid: `display_grid.htm`
+  - image grid: `display_grid.htm`
   - animation with play/pause/frame selection: `display_animation.htm`
-
+    
 2. Label
   - 1D temporal annotation: `label_segment1d.htm`
   - grid selection: ``
