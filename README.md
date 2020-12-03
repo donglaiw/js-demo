@@ -1,6 +1,6 @@
 # js-demo
 html/javascript pages for result visualization.
-  - [Online demos](http://140.247.107.10/donglai/public/js-demo/demo/)
+  - [Online demos](https://rhoana.rc.fas.harvard.edu/js-demo/demo/)
   - [Data (CIFAR10)](https://www.cs.toronto.edu/~kriz/cifar.html)
 
 ## File Description (`demo/`)
